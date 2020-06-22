@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{url_for(endpoint='static', filename='project_styles.css')}}">
+    <script type="text/javascript" src="{{url_for(endpoint='static', filename='result.js')}}"></script>
+    <meta charset="UTF-8">
+    <title>Prediction Result</title>
+</head>
+
+<style>
+	#sudoku table {
+	  margin:auto;
+	}
+	#sudoku td {
+	  height:30px;
+	  width:30px;
+	  border:1px solid;
+	  text-align:center;
+	}
+	#sudoku td:first-child {
+	  border-left:solid;
+	}
+	#sudoku td:nth-child(3n) {
+	  border-right:solid ;
+	}
+	#sudoku tr:first-child {
+	  border-top:solid;
+	}
+	#sudoku tr:nth-child(3n) td {
+	  border-bottom:solid ;
+	}
+</style>
+
+<style>
+	ul {
+	  display: flex;
+	  list-style: none;
+	}
+	li {
+	  margin: 0 25px;
+	  position: relative;
+	}
+	li:not(:last-child):after {
+	  content: '';
+	  height: 1px;
+	  background: black;
+	  width: 50px;
+	  position: absolute;
+	  right: -50px;
+	  top: 50%;
+	}
+	li:not(:last-child):before {
+	  content: '';
+	  position: absolute;
+	  width: 0;
+	  height: 0;
+	  top: 50%;
+	  border-style: solid;
+	  border-width: 7px 0 7px 20px;
+	  border-color: transparent transparent transparent black;
+	  right: -50px;
+	  transform: translateY(-50%);
+	}
+</style>
+
+<ul>
+  <li>
+	<figure>
+		<figcaption text-align="center"><h2>Original Image</h2></figcaption>
+		<img src="{{ url_for('send_file', filename=filename) }}" width="320" height="320">
+	</figure>
+  </li>
+  <li>
+	<figure>
+		<figcaption ><h2>Detected Sudoku</h2></figcaption>
+		<img src="{{ url_for('send_file', filename=cropped) }}" width="320" height="320">
+		
+	</figure>
+  </li>
+  <li>
+	<figure>
+		<figcaption text-align="center"><h2>Extracted Sudoku</h2></figcaption>
+		<table id="sudoku">
+			{% for dat in detected_sudoku %}
+			<tr>
+				{% for d in dat %}
+					<td> {{ d }} </td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</table>
+	</figure>
+  </li>
+</ul>
+
+{% if isValid is sameas 'False' %}
+<center><h1> Detected Sudoku is not Valid!! </h1></center>
+{% else %}
+<center> 
+	<figure>
+		<figcaption text-align="center"><h2>Solved</h2></figcaption>
+		<table id="sudoku">
+			{% for dat in solved %}
+			<tr>
+				{% for d in dat %}
+					<td> {{ d }} </td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</table>
+	</figure></center>
+{% endif %}
+<center><a href="{{url_for(endpoint='homepage')}}"><span>Return to homepage</span>.</a> </center>
+
+</html>
