@@ -49,7 +49,7 @@ mkl-fft==1.0.6
 mkl-random==1.0.1
 nbconvert==5.5.0
 nbformat==5.0.7
-numpy==1.15.2
+numpy==1.22.0
 numpydoc==1.0.0
 opencv-python==4.2.0.34
 packaging==20.4
