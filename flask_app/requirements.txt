@@ -57,7 +57,7 @@ pandocfilters==1.4.2
 parso==0.7.0
 pickleshare==0.7.4
 prompt-toolkit==1.0.15
-protobuf==3.6.0
+protobuf==3.18.3
 psutil==5.4.7
 pycodestyle==2.6.0
 pycparser==2.20
